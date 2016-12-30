@@ -2,6 +2,7 @@ package com.example.jinfei.myapplication;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -12,13 +13,16 @@ import java.util.List;
 
 public class BaseActivity extends AppCompatActivity {
 
-    private static final int REQUEST_CODE = 1;
+    private static final int PERMISSION_REQUEST_CODE = 1;
     private PermissionListener mListener;
 
     public void requestRuntimePermission(String[] permissions, PermissionListener listener) {
         Activity topActivity = ActivityController.getTopActivity();
         if(topActivity == null) {
             return;
+        }
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return ;
         }
         mListener = listener;
         List<String> permissionList = new ArrayList<>();
@@ -28,7 +32,7 @@ public class BaseActivity extends AppCompatActivity {
             }
         }
         if(!permissionList.isEmpty()) {
-            ActivityCompat.requestPermissions(topActivity, permissionList.toArray(new String[permissionList.size()]), REQUEST_CODE);
+            ActivityCompat.requestPermissions(topActivity, permissionList.toArray(new String[permissionList.size()]), PERMISSION_REQUEST_CODE);
         } else {
             mListener.onGranted();
         }
@@ -38,7 +42,7 @@ public class BaseActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
-            case REQUEST_CODE: {
+            case PERMISSION_REQUEST_CODE: {
                 if(grantResults.length > 0) {
                     List<String> deniedPermissions = new ArrayList<>();
                     for(int i = 0; i < grantResults.length; i++) {
