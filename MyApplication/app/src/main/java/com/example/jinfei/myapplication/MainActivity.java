@@ -40,13 +40,15 @@ public class MainActivity extends BaseActivity {
                 requestRuntimePermission(new String[]{Manifest.permission.INTERNET}, new PermissionListener() {
                     @Override
                     public void onGranted() {
-                        Toast.makeText(MainActivity.this, "所有权限都同意了", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, getResources().getString(R.string.permission_granted), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onDenied(List<String> deniedPermissions) {
+                        StringBuilder sb = new StringBuilder();
                         for(String permission :deniedPermissions) {
-                            Toast.makeText(MainActivity.this, permission + "被拒绝了", Toast.LENGTH_SHORT).show();
+                            sb.append(permission).append(getResources().getString(R.string.permission_denied));
+                            Toast.makeText(MainActivity.this, sb.toString(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -64,13 +66,13 @@ public class MainActivity extends BaseActivity {
         btnClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tvContent.setText(getResources().getText(R.string.hello_world));
+                tvContent.setText(getResources().getString(R.string.hello_world));
             }
         });
     }
 
     private void coolGet() {
-        CommonOkHttpClient.get("http://www.qq.com", null, new DisposeDataHandler(new DisposeDataListener() {
+        CommonOkHttpClient.get(getResources().getString(R.string.test_get_url), null, new DisposeDataHandler(new DisposeDataListener() {
             @Override
             public void onSuccess(Object response) {
                 tvContent.setText(response.toString());
@@ -82,6 +84,12 @@ public class MainActivity extends BaseActivity {
             }
         }));
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityController.removeActivity(this);
     }
 
     private void coolPost() {
@@ -102,9 +110,4 @@ public class MainActivity extends BaseActivity {
         }, ResponseBean.class));
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ActivityController.removeActivity(this);
-    }
 }

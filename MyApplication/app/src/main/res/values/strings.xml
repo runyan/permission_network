@@ -4,4 +4,7 @@
     <string name="post">post</string>
     <string name="get">get</string>
     <string name="clear">clear</string>
+    <string name="permission_granted">所有权限都同意了</string>
+    <string name="permission_denied">被拒绝了</string>
+    <string name="test_get_url">http://www.qq.com</string>
 </resources>

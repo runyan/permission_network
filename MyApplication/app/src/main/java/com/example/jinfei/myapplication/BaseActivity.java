@@ -3,6 +3,8 @@ package com.example.jinfei.myapplication;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -14,16 +16,16 @@ import java.util.List;
 public class BaseActivity extends AppCompatActivity {
 
     private static final int PERMISSION_REQUEST_CODE = 1;
-    private PermissionListener mListener;
+    private static PermissionListener mListener;
 
-    public void requestRuntimePermission(String[] permissions, PermissionListener listener) {
+    public static void requestRuntimePermission(String[] permissions, PermissionListener listener) {
         Activity topActivity = ActivityController.getTopActivity();
         if(topActivity == null) {
             return;
         }
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return ;
-        }
+//        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+//            return ;
+//        }
         mListener = listener;
         List<String> permissionList = new ArrayList<>();
         for(String permission : permissions) {
