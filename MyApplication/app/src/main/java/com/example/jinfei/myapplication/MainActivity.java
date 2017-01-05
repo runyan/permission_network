@@ -1,6 +1,7 @@
 package com.example.jinfei.myapplication;
 
 import android.Manifest;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -67,6 +68,8 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 tvContent.setText(getResources().getString(R.string.hello_world));
+                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                startActivity(intent);
             }
         });
     }
