@@ -7,4 +7,7 @@
     <string name="permission_granted">所有权限都同意了</string>
     <string name="permission_denied">被拒绝了</string>
     <string name="test_get_url">http://www.qq.com</string>
+    <string name="test_post_url">http://www.tuling123.com/openapi/api</string>
+    <string name="app_key">07dd87c07e42408b87d2642970c71be0</string>
+    <string name="user_id">12345678</string>
 </resources>

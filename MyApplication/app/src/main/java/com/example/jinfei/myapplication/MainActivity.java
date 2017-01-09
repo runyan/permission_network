@@ -114,7 +114,8 @@ public class MainActivity extends BaseActivity {
 
     private Request generatePostRequest(String url, Map<String, String> params) {
         FormBody.Builder builder = new FormBody.Builder();
-        builder.add("key", "07dd87c07e42408b87d2642970c71be0");
+        builder.add("key", getResources().getString(R.string.app_key));
+        builder.add("userid", getResources().getString(R.string.user_id));
         for(Map.Entry<String, String> entry : params.entrySet()) {
             builder.add(entry.getKey(), entry.getValue());
         }
@@ -155,14 +156,13 @@ public class MainActivity extends BaseActivity {
 //            }
 //        }));
         final Map<String, String> params = new HashMap<>();
-        params.put("info", "明天去上海的航班");
+        params.put("info", "明天去上海的火车");
         params.put("loc", "北京市中关村");
-        params.put("userid", "12345678");
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    final String responseStr = post("http://www.tuling123.com/openapi/api", params);
+                    final String responseStr = post(getResources().getString(R.string.test_post_url), params);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
