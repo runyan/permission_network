@@ -100,8 +100,8 @@ public class MainActivity extends BaseActivity {
         ActivityController.removeActivity(this);
     }
 
-    OkHttpClient client = new OkHttpClient();
-    String post(String url, Map<String, String> params) throws IOException {
+    private OkHttpClient client = new OkHttpClient();
+    private String post(String url, Map<String, String> params) throws IOException {
         Request request = generatePostRequest(url, params);
 
         Response response = client.newCall(request).execute();
